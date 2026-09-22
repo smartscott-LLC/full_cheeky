@@ -454,4 +454,6 @@ lerna-debug.log
 # Docusaurus build output
 .docusaurus/
 
+.git
+.github
 
