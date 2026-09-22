@@ -1,0 +1,7 @@
+cat /home/server/.qwen/settings.json
+cat /home/server/.qwen/config.json
+ls /home/server/.qwen/tools/ && cat /home/server/.qwen/tools/*
+ls /home/server/.qwen/skills/ && cat /home/server/.qwen/skills/*
+ls /home/server/.qwen/mcp/ && cat /home/server/.qwen/mcp/*
+ls /home/server/.qwen/memories/ && cat /home/server/.qwen/memories/*
+find Club-Cheeky/.qwen -type f -exec echo "=== {} ===" \; -exec cat {} \;
