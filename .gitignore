@@ -267,11 +267,9 @@ web_modules/
 
 # Optional eslint cache
 .eslintcache
-<<<<<<< HEAD
+
 lerna-debug.log
 .vscode
-=======
-<<<<<<< HEAD
 
 # Microbundle cache
 .rpt2_cache/
@@ -457,3 +455,8 @@ lerna-debug.log
 .git
 .github
 
+.aider*
+
+cheeky_form_server
+cheeky_form_server/**
+cheeky_form_server/*
