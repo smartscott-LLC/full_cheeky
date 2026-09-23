@@ -6,19 +6,28 @@ import { Suspense, useRef, useMemo } from 'react';
 import Avatar from './Avatar';
 import * as THREE from 'three';
 
+// Generate stable particle positions outside component to avoid Math.random() in render
+function generateParticlePositions(count: number): Float32Array {
+  const positions = new Float32Array(count * 3);
+  // Use a deterministic seed for stable generation
+  let seed = 12345;
+  const random = () => {
+    seed = (seed * 16807) % 2147483647;
+    return (seed - 1) / 2147483646;
+  };
+  
+  for (let i = 0; i < count; i++) {
+    positions[i * 3] = (random() - 0.5) * 15;
+    positions[i * 3 + 1] = random() * 8;
+    positions[i * 3 + 2] = (random() - 0.5) * 15;
+  }
+  return positions;
+}
+
 function FloatingParticles() {
   const meshRef = useRef<THREE.Points>(null);
   
-  const particles = useMemo(() => {
-    const count = 100;
-    const positions = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 15;
-      positions[i * 3 + 1] = Math.random() * 8;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 15;
-    }
-    return positions;
-  }, []);
+  const particles = useMemo(() => generateParticlePositions(100), []);
 
   useFrame((state) => {
     if (meshRef.current) {

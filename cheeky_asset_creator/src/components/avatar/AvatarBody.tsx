@@ -226,31 +226,31 @@ export function AvatarBody() {
     const parts: React.ReactNode[] = [];
     
     // TOP CLOTHING
-    const topColor = useMemo(() => new THREE.Color(avatar.topColor || '#3498db'), [avatar.topColor]);
-    const topMaterial = useMemo(() => new THREE.MeshStandardMaterial({ 
-      color: topColor, 
+    const _topColor = new THREE.Color(avatar.topColor || '#3498db');
+    const _topMaterial = new THREE.MeshStandardMaterial({ 
+      color: _topColor, 
       roughness: 0.75,
       metalness: 0.05,
-    }), [topColor]);
+    });
 
     switch (avatar.topType) {
       case 'tshirt':
         parts.push(
           <mesh key="tshirt-body" position={[0, 0.55, 0]} castShadow>
             <capsuleGeometry args={[0.26 * bodyScale.torso, 0.44, 12, 32]} />
-            <topMaterial />
+            <_topMaterial />
           </mesh>,
           <mesh key="tshirt-collar" position={[0, 0.78, 0.18]}>
             <torusGeometry args={[0.11, 0.018, 8, 32, Math.PI]} />
-            <topMaterial />
+            <_topMaterial />
           </mesh>,
           <mesh key="sleeve-l" position={[-0.34 * bodyScale.shoulders, 0.65, 0]} castShadow>
             <cylinderGeometry args={[0.09, 0.07, 0.2, 16]} />
-            <topMaterial />
+            <_topMaterial />
           </mesh>,
           <mesh key="sleeve-r" position={[0.34 * bodyScale.shoulders, 0.65, 0]} castShadow>
             <cylinderGeometry args={[0.09, 0.07, 0.2, 16]} />
-            <topMaterial />
+            <_topMaterial />
           </mesh>
         );
         break;
@@ -258,15 +258,15 @@ export function AvatarBody() {
         parts.push(
           <mesh key="hoodie-body" position={[0, 0.55, 0]} castShadow>
             <capsuleGeometry args={[0.28 * bodyScale.torso, 0.46, 12, 32]} />
-            <topMaterial />
+            <_topMaterial />
           </mesh>,
           <mesh key="hoodie-back" position={[0, 0.72, -0.12]}>
             <sphereGeometry args={[0.16, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2]} />
-            <topMaterial />
+            <_topMaterial />
           </mesh>,
           <mesh key="hoodie-pouch" position={[0, 0.38, 0.26]}>
             <boxGeometry args={[0.32, 0.18, 0.1]} />
-            <topMaterial />
+            <_topMaterial />
           </mesh>
         );
         break;
@@ -274,15 +274,15 @@ export function AvatarBody() {
         parts.push(
           <mesh key="shirt-l" position={[-0.13, 0.55, 0]} castShadow>
             <capsuleGeometry args={[0.14, 0.44, 12, 32]} />
-            <topMaterial />
+            <_topMaterial />
           </mesh>,
           <mesh key="shirt-r" position={[0.13, 0.55, 0]} castShadow>
             <capsuleGeometry args={[0.14, 0.44, 12, 32]} />
-            <topMaterial />
+            <_topMaterial />
           </mesh>,
           <mesh key="collar" position={[0, 0.78, 0.16]}>
             <torusGeometry args={[0.13, 0.025, 8, 32, Math.PI]} />
-            <topMaterial />
+            <_topMaterial />
           </mesh>,
           <mesh key="buttons" position={[0, 0.55, 0.26]}>
             <boxGeometry args={[0.015, 0.38, 0.015]} />
@@ -294,7 +294,7 @@ export function AvatarBody() {
         parts.push(
           <mesh key="tank" position={[0, 0.55, 0]} castShadow>
             <capsuleGeometry args={[0.24 * bodyScale.torso, 0.42, 12, 32]} />
-            <topMaterial />
+            <_topMaterial />
           </mesh>
         );
         break;
@@ -302,7 +302,7 @@ export function AvatarBody() {
         parts.push(
           <mesh key="jacket" position={[0, 0.55, 0]} castShadow>
             <capsuleGeometry args={[0.29 * bodyScale.torso, 0.48, 12, 32]} />
-            <topMaterial />
+            <_topMaterial />
           </mesh>,
           <mesh key="zipper" position={[0, 0.55, 0.27]}>
             <boxGeometry args={[0.018, 0.42, 0.015]} />
@@ -313,12 +313,12 @@ export function AvatarBody() {
     }
 
     // BOTTOM CLOTHING
-    const bottomColor = useMemo(() => new THREE.Color(avatar.bottomColor || '#2c3e50'), [avatar.bottomColor]);
-    const bottomMaterial = useMemo(() => new THREE.MeshStandardMaterial({ 
-      color: bottomColor, 
+    const _bottomColor = new THREE.Color(avatar.bottomColor || '#2c3e50');
+    const _bottomMaterial = new THREE.MeshStandardMaterial({ 
+      color: _bottomColor, 
       roughness: 0.7,
       metalness: 0.05,
-    }), [bottomColor]);
+    });
 
     switch (avatar.bottomType) {
       case 'pants':
@@ -326,19 +326,19 @@ export function AvatarBody() {
         parts.push(
           <mesh key="pants-waist" position={[0, 0.24, 0]} castShadow>
             <capsuleGeometry args={[0.24 * bodyScale.hips, 0.12, 12, 32]} />
-            <bottomMaterial />
+            <_bottomMaterial />
           </mesh>,
           <mesh key="leg-l" position={[-0.12, -0.02, 0]} castShadow>
             <cylinderGeometry args={[0.095, 0.08, 0.62, 16]} />
-            <bottomMaterial />
+            <_bottomMaterial />
           </mesh>,
           <mesh key="leg-r" position={[0.12, -0.02, 0]} castShadow>
             <cylinderGeometry args={[0.095, 0.08, 0.62, 16]} />
-            <bottomMaterial />
+            <_bottomMaterial />
           </mesh>,
           <mesh key="crotch" position={[0, 0.12, 0]} castShadow>
             <sphereGeometry args={[0.12, 24, 24]} />
-            <bottomMaterial />
+            <_bottomMaterial />
           </mesh>
         );
         break;
@@ -346,15 +346,15 @@ export function AvatarBody() {
         parts.push(
           <mesh key="shorts-waist" position={[0, 0.24, 0]} castShadow>
             <capsuleGeometry args={[0.24 * bodyScale.hips, 0.08, 12, 32]} />
-            <bottomMaterial />
+            <_bottomMaterial />
           </mesh>,
           <mesh key="thigh-l" position={[-0.12, 0.06, 0]} castShadow>
             <cylinderGeometry args={[0.1, 0.085, 0.25, 16]} />
-            <bottomMaterial />
+            <_bottomMaterial />
           </mesh>,
           <mesh key="thigh-r" position={[0.12, 0.06, 0]} castShadow>
             <cylinderGeometry args={[0.1, 0.085, 0.25, 16]} />
-            <bottomMaterial />
+            <_bottomMaterial />
           </mesh>
         );
         break;
@@ -362,39 +362,39 @@ export function AvatarBody() {
         parts.push(
           <mesh key="skirt" position={[0, 0.18, 0]} castShadow>
             <coneGeometry args={[0.32 * bodyScale.hips, 0.38, 32, 1, true]} />
-            <bottomMaterial side={THREE.DoubleSide} />
+            <_bottomMaterial side={THREE.DoubleSide} />
           </mesh>
         );
         break;
     }
 
     // SHOES
-    const shoeColor = useMemo(() => new THREE.Color(avatar.shoeColor || '#ecf0f1'), [avatar.shoeColor]);
-    const soleMaterial = useMemo(() => new THREE.MeshStandardMaterial({ color: '#2c3e50', roughness: 0.9 }), []);
-    const shoeMaterial = useMemo(() => new THREE.MeshStandardMaterial({ 
-      color: shoeColor, 
+    const _shoeColor = new THREE.Color(avatar.shoeColor || '#ecf0f1');
+    const _soleMaterial = new THREE.MeshStandardMaterial({ color: '#2c3e50', roughness: 0.9 });
+    const _shoeMaterial = new THREE.MeshStandardMaterial({ 
+      color: _shoeColor, 
       roughness: 0.55,
       metalness: 0.1,
-    }), [shoeColor]);
+    });
 
     switch (avatar.shoeType) {
       case 'sneakers':
         parts.push(
           <mesh key="sneaker-l" position={[-0.12, -0.88, 0.05]} castShadow>
             <boxGeometry args={[0.13, 0.1, 0.24]} />
-            <shoeMaterial />
+            <_shoeMaterial />
           </mesh>,
           <mesh key="sneaker-r" position={[0.12, -0.88, 0.05]} castShadow>
             <boxGeometry args={[0.13, 0.1, 0.24]} />
-            <shoeMaterial />
+            <_shoeMaterial />
           </mesh>,
           <mesh key="sole-l" position={[-0.12, -0.94, 0.05]}>
             <boxGeometry args={[0.135, 0.03, 0.25]} />
-            <soleMaterial />
+            <_soleMaterial />
           </mesh>,
           <mesh key="sole-r" position={[0.12, -0.94, 0.05]}>
             <boxGeometry args={[0.135, 0.03, 0.25]} />
-            <soleMaterial />
+            <_soleMaterial />
           </mesh>
         );
         break;
@@ -402,11 +402,11 @@ export function AvatarBody() {
         parts.push(
           <mesh key="boot-l" position={[-0.12, -0.82, 0.05]} castShadow>
             <cylinderGeometry args={[0.08, 0.09, 0.22, 16]} />
-            <shoeMaterial />
+            <_shoeMaterial />
           </mesh>,
           <mesh key="boot-r" position={[0.12, -0.82, 0.05]} castShadow>
             <cylinderGeometry args={[0.08, 0.09, 0.22, 16]} />
-            <shoeMaterial />
+            <_shoeMaterial />
           </mesh>
         );
         break;
@@ -414,11 +414,11 @@ export function AvatarBody() {
         parts.push(
           <mesh key="sandal-l" position={[-0.12, -0.9, 0.05]} castShadow>
             <boxGeometry args={[0.12, 0.04, 0.22]} />
-            <shoeMaterial />
+            <_shoeMaterial />
           </mesh>,
           <mesh key="sandal-r" position={[0.12, -0.9, 0.05]} castShadow>
             <boxGeometry args={[0.12, 0.04, 0.22]} />
-            <shoeMaterial />
+            <_shoeMaterial />
           </mesh>
         );
         break;
@@ -426,11 +426,11 @@ export function AvatarBody() {
         parts.push(
           <mesh key="formal-l" position={[-0.12, -0.88, 0.05]} castShadow>
             <boxGeometry args={[0.12, 0.08, 0.24]} />
-            <shoeMaterial />
+            <_shoeMaterial />
           </mesh>,
           <mesh key="formal-r" position={[0.12, -0.88, 0.05]} castShadow>
             <boxGeometry args={[0.12, 0.08, 0.24]} />
-            <shoeMaterial />
+            <_shoeMaterial />
           </mesh>
         );
         break;
@@ -438,68 +438,68 @@ export function AvatarBody() {
 
     // ACCESSORIES
     if (avatar.accessory === 'glasses') {
-      const glassMaterial = useMemo(() => new THREE.MeshStandardMaterial({ color: '#2c3e50', roughness: 0.25, metalness: 0.85 }), []);
+      const _glassMaterial = new THREE.MeshStandardMaterial({ color: '#2c3e50', roughness: 0.25, metalness: 0.85 });
       parts.push(
         <group key="glasses" position={[0, 0.1, 0.44]}>
           <mesh position={[-0.16, 0, 0]}>
             <circleGeometry args={[0.07, 32]} />
-            <glassMaterial />
+            <_glassMaterial />
           </mesh>
           <mesh position={[0.16, 0, 0]}>
             <circleGeometry args={[0.07, 32]} />
-            <glassMaterial />
+            <_glassMaterial />
           </mesh>
           <mesh position={[0, 0, 0.02]}>
             <boxGeometry args={[0.1, 0.012, 0.012]} />
-            <glassMaterial />
+            <_glassMaterial />
           </mesh>
           <mesh position={[-0.26, 0.02, -0.02]} rotation={[0, 0, 0.25]}>
             <boxGeometry args={[0.12, 0.012, 0.012]} />
-            <glassMaterial />
+            <_glassMaterial />
           </mesh>
           <mesh position={[0.26, 0.02, -0.02]} rotation={[0, 0, -0.25]}>
             <boxGeometry args={[0.12, 0.012, 0.012]} />
-            <glassMaterial />
+            <_glassMaterial />
           </mesh>
         </group>
       );
     }
     
     if (avatar.accessory === 'sunglasses') {
-      const lensMaterial = useMemo(() => new THREE.MeshStandardMaterial({ color: '#1a1a1a', roughness: 0.05, metalness: 0.95 }), []);
+      const _lensMaterial = new THREE.MeshStandardMaterial({ color: '#1a1a1a', roughness: 0.05, metalness: 0.95 });
       parts.push(
         <group key="sunglasses" position={[0, 0.1, 0.44]}>
           <mesh position={[-0.16, 0, 0]}>
             <boxGeometry args={[0.15, 0.1, 0.04]} />
-            <lensMaterial />
+            <_lensMaterial />
           </mesh>
           <mesh position={[0.16, 0, 0]}>
             <boxGeometry args={[0.15, 0.1, 0.04]} />
-            <lensMaterial />
+            <_lensMaterial />
           </mesh>
           <mesh position={[0, 0.02, 0.015]}>
             <boxGeometry args={[0.08, 0.018, 0.015]} />
-            <lensMaterial />
+            <_lensMaterial />
           </mesh>
         </group>
       );
     }
     
     if (avatar.accessory === 'hat') {
-      const hatMaterial = useMemo(() => new THREE.MeshStandardMaterial({ color: '#e74c3c', roughness: 0.65 }), []);
+      const _hatMaterial = new THREE.MeshStandardMaterial({ color: '#e74c3c', roughness: 0.65 });
       parts.push(
         <group key="hat" position={[0, 0.38, 0]}>
           <mesh castShadow>
             <cylinderGeometry args={[0.28, 0.28, 0.1, 32]} />
-            <hatMaterial />
+            <_hatMaterial />
           </mesh>
           <mesh position={[0, 0.07, 0]} castShadow>
             <cylinderGeometry args={[0.2, 0.2, 0.14, 32]} />
-            <hatMaterial />
+            <_hatMaterial />
           </mesh>
           <mesh position={[0, 0.03, 0.26]} castShadow>
             <boxGeometry args={[0.42, 0.04, 0.1]} />
-            <hatMaterial />
+            <_hatMaterial />
           </mesh>
           <mesh position={[0, 0.02, 0]} castShadow>
             <torusGeometry args={[0.2, 0.02, 8, 32]} />
@@ -510,29 +510,29 @@ export function AvatarBody() {
     }
     
     if (avatar.accessory === 'earrings') {
-      const goldMaterial = useMemo(() => new THREE.MeshStandardMaterial({ color: '#f1c40f', metalness: 0.95, roughness: 0.08 }), []);
+      const _goldMaterial = new THREE.MeshStandardMaterial({ color: '#f1c40f', metalness: 0.95, roughness: 0.08 });
       parts.push(
         <mesh key="earring-l" position={[-0.49, -0.1, 0]} castShadow>
           <torusGeometry args={[0.028, 0.006, 12, 24]} />
-          <goldMaterial />
+          <_goldMaterial />
         </mesh>,
         <mesh key="earring-r" position={[0.49, -0.1, 0]} castShadow>
           <torusGeometry args={[0.028, 0.006, 12, 24]} />
-          <goldMaterial />
+          <_goldMaterial />
         </mesh>
       );
     }
     
     if (avatar.accessory === 'necklace') {
-      const goldMaterial = useMemo(() => new THREE.MeshStandardMaterial({ color: '#f1c40f', metalness: 0.95, roughness: 0.08 }), []);
+      const _goldMaterial2 = new THREE.MeshStandardMaterial({ color: '#f1c40f', metalness: 0.95, roughness: 0.08 });
       parts.push(
         <mesh key="necklace-chain" position={[0, 0.74, 0.18]} rotation={[Math.PI / 2.5, 0, 0]}>
           <torusGeometry args={[0.14, 0.006, 8, 32]} />
-          <goldMaterial />
+          <_goldMaterial2 />
         </mesh>,
         <mesh key="necklace-pendant" position={[0, 0.62, 0.28]}>
           <sphereGeometry args={[0.03, 24, 24]} />
-          <goldMaterial />
+          <_goldMaterial2 />
         </mesh>
       );
     }
