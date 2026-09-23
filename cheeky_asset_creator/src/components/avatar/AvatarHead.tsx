@@ -30,8 +30,6 @@ export function AvatarHead() {
           color={skinColor} 
           roughness={0.65}
           metalness={0.02}
-          clearcoat={0.1}
-          clearcoatRoughness={0.4}
         />
       </mesh>
       
@@ -191,13 +189,11 @@ export function AvatarHead() {
   );
 
   function renderHair(style: string, color: THREE.Color) {
-    const _hairMaterial = new THREE.MeshStandardMaterial({ 
+    const hairMaterialProps = { 
       color, 
       roughness: 0.75, 
       metalness: 0.05,
-      clearcoat: 0.2,
-      clearcoatRoughness: 0.6
-    });
+    };
 
     switch (style) {
       case 'short':
@@ -206,21 +202,21 @@ export function AvatarHead() {
             {/* Hair base */}
             <mesh position={[0, 0.18, 0]} castShadow>
               <sphereGeometry args={[0.5, 64, 64, 0, Math.PI * 2, 0, Math.PI / 2 + 0.15]} />
-              <_hairMaterial />
+              <meshStandardMaterial {...hairMaterialProps} />
             </mesh>
             {/* Front bangs */}
             <mesh position={[0, 0.12, 0.38]} castShadow>
               <boxGeometry args={[0.85, 0.18, 0.25]} />
-              <_hairMaterial />
+              <meshStandardMaterial {...hairMaterialProps} />
             </mesh>
             {/* Side hair */}
             <mesh position={[-0.48, 0.05, 0]} castShadow>
               <capsuleGeometry args={[0.1, 0.22, 8, 16]} />
-              <_hairMaterial />
+              <meshStandardMaterial {...hairMaterialProps} />
             </mesh>
             <mesh position={[0.48, 0.05, 0]} castShadow>
               <capsuleGeometry args={[0.1, 0.22, 8, 16]} />
-              <_hairMaterial />
+              <meshStandardMaterial {...hairMaterialProps} />
             </mesh>
           </group>
         );
@@ -229,23 +225,23 @@ export function AvatarHead() {
           <group>
             <mesh position={[0, 0.15, 0]} castShadow>
               <sphereGeometry args={[0.51, 64, 64, 0, Math.PI * 2, 0, Math.PI / 2 + 0.25]} />
-              <_hairMaterial />
+              <meshStandardMaterial {...hairMaterialProps} />
             </mesh>
             <mesh position={[-0.52, -0.02, 0.05]} castShadow>
               <capsuleGeometry args={[0.09, 0.32, 8, 16]} />
-              <_hairMaterial />
+              <meshStandardMaterial {...hairMaterialProps} />
             </mesh>
             <mesh position={[0.52, -0.02, 0.05]} castShadow>
               <capsuleGeometry args={[0.09, 0.32, 8, 16]} />
-              <_hairMaterial />
+              <meshStandardMaterial {...hairMaterialProps} />
             </mesh>
             <mesh position={[-0.52, -0.02, 0.05]} rotation={[0, 0, 0.15]}>
               <capsuleGeometry args={[0.08, 0.28, 8, 16]} />
-              <_hairMaterial />
+              <meshStandardMaterial {...hairMaterialProps} />
             </mesh>
             <mesh position={[0.52, -0.02, 0.05]} rotation={[0, 0, -0.15]}>
               <capsuleGeometry args={[0.08, 0.28, 8, 16]} />
-              <_hairMaterial />
+              <meshStandardMaterial {...hairMaterialProps} />
             </mesh>
           </group>
         );
@@ -254,25 +250,25 @@ export function AvatarHead() {
           <group>
             <mesh position={[0, 0.15, 0]} castShadow>
               <sphereGeometry args={[0.52, 64, 64, 0, Math.PI * 2, 0, Math.PI / 2 + 0.3]} />
-              <_hairMaterial />
+              <meshStandardMaterial {...hairMaterialProps} />
             </mesh>
             <mesh position={[-0.55, -0.15, -0.08]} castShadow>
               <capsuleGeometry args={[0.1, 0.55, 8, 16]} />
-              <_hairMaterial />
+              <meshStandardMaterial {...hairMaterialProps} />
             </mesh>
             <mesh position={[0.55, -0.15, -0.08]} castShadow>
               <capsuleGeometry args={[0.1, 0.55, 8, 16]} />
-              <_hairMaterial />
+              <meshStandardMaterial {...hairMaterialProps} />
             </mesh>
             <mesh position={[0, -0.25, -0.18]} castShadow>
               <boxGeometry args={[0.9, 0.5, 0.15]} />
-              <_hairMaterial />
+              <meshStandardMaterial {...hairMaterialProps} />
             </mesh>
             {/* Hair strands detail */}
             {[0, 0.15, -0.15].map((x, i) => (
               <mesh key={i} position={[x - 0.15, -0.35, -0.22]} castShadow>
                 <capsuleGeometry args={[0.04, 0.25, 6, 12]} />
-                <_hairMaterial />
+                <meshStandardMaterial {...hairMaterialProps} />
               </mesh>
             ))}
           </group>
@@ -282,20 +278,20 @@ export function AvatarHead() {
           <group>
             <mesh position={[0, 0.15, 0]} castShadow>
               <sphereGeometry args={[0.48, 64, 64, 0, Math.PI * 2, 0, Math.PI / 2.5]} />
-              <_hairMaterial />
+              <meshStandardMaterial {...hairMaterialProps} />
             </mesh>
             <mesh position={[0, 0.32, 0]} castShadow>
               <boxGeometry args={[0.18, 0.32, 0.65]} />
-              <_hairMaterial />
+              <meshStandardMaterial {...hairMaterialProps} />
             </mesh>
             {/* Fade sides */}
             <mesh position={[-0.46, 0.05, 0]} castShadow>
               <sphereGeometry args={[0.12, 32, 32]} />
-              <_hairMaterial />
+              <meshStandardMaterial {...hairMaterialProps} />
             </mesh>
             <mesh position={[0.46, 0.05, 0]} castShadow>
               <sphereGeometry args={[0.12, 32, 32]} />
-              <_hairMaterial />
+              <meshStandardMaterial {...hairMaterialProps} />
             </mesh>
           </group>
         );
@@ -313,7 +309,7 @@ export function AvatarHead() {
           <group>
             <mesh position={[0, 0.18, 0]} castShadow>
               <sphereGeometry args={[0.56, 64, 64]} />
-              <_hairMaterial />
+              <meshStandardMaterial {...hairMaterialProps} />
             </mesh>
             {/* Curly bumps */}
             {[
@@ -325,7 +321,7 @@ export function AvatarHead() {
             ].map((pos, i) => (
               <mesh key={i} position={new THREE.Vector3(pos[0], pos[1], pos[2])} castShadow>
                 <sphereGeometry args={[0.11, 24, 24]} />
-                <_hairMaterial />
+                <meshStandardMaterial {...hairMaterialProps} />
               </mesh>
             ))}
           </group>
@@ -335,7 +331,7 @@ export function AvatarHead() {
           <group>
             <mesh position={[0, 0.2, 0]} castShadow>
               <sphereGeometry args={[0.62, 64, 64]} />
-              <_hairMaterial />
+              <meshStandardMaterial {...hairMaterialProps} />
             </mesh>
             {/* Texture bumps */}
             {[
@@ -347,7 +343,7 @@ export function AvatarHead() {
             ].map((pos, i) => (
               <mesh key={i} position={new THREE.Vector3(pos[0], pos[1], pos[2])} castShadow>
                 <sphereGeometry args={[0.13, 20, 20]} />
-                <_hairMaterial />
+                <meshStandardMaterial {...hairMaterialProps} />
               </mesh>
             ))}
           </group>
@@ -357,16 +353,16 @@ export function AvatarHead() {
           <group>
             <mesh position={[0, 0.15, 0]} castShadow>
               <sphereGeometry args={[0.51, 64, 64, 0, Math.PI * 2, 0, Math.PI / 2 + 0.25]} />
-              <_hairMaterial />
+              <meshStandardMaterial {...hairMaterialProps} />
             </mesh>
             {/* Ponytail */}
             <mesh position={[0, 0.05, -0.52]} castShadow>
               <cylinderGeometry args={[0.12, 0.06, 0.45, 16]} />
-              <_hairMaterial />
+              <meshStandardMaterial {...hairMaterialProps} />
             </mesh>
             <mesh position={[0, -0.18, -0.65]} castShadow>
               <sphereGeometry args={[0.08, 24, 24]} />
-              <_hairMaterial />
+              <meshStandardMaterial {...hairMaterialProps} />
             </mesh>
             {/* Hair tie */}
             <mesh position={[0, 0.22, -0.42]} castShadow>

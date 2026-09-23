@@ -39,10 +39,8 @@ function FloatingParticles() {
     <points ref={meshRef}>
       <bufferGeometry>
         <bufferAttribute
-          attach="attributes.position"
-          count={particles.length / 3}
-          array={particles}
-          itemSize={3}
+          attach="attributes-position"
+          args={[particles, 3]}
         />
       </bufferGeometry>
       <pointsMaterial size={0.03} color="#818cf8" transparent opacity={0.6} />
