@@ -49,7 +49,7 @@ export function AvatarBody() {
             {/* Chest center line */}
             <mesh position={[0, 0.05, 0.23]} castShadow>
               <boxGeometry args={[0.03, 0.18, 0.02]} />
-              <meshStandardMaterial color={new THREE.Color(skinColor).multiplyScalar(0.88)} roughness={0.7} />
+              <meshStandardMaterial color={skinColor.clone().multiplyScalar(0.88)} roughness={0.7} />
             </mesh>
           </>
         )}
@@ -58,7 +58,7 @@ export function AvatarBody() {
         {(avatar.bodyType === 'slim' || avatar.bodyType === 'average') && (
           <mesh position={[0, -0.05, 0.24]} castShadow>
             <boxGeometry args={[0.18, 0.22, 0.02]} />
-            <meshStandardMaterial color={new THREE.Color(skinColor).multiplyScalar(0.9)} roughness={0.65} />
+            <meshStandardMaterial color={skinColor.clone().multiplyScalar(0.9)} roughness={0.65} />
           </mesh>
         )}
       </group>
@@ -226,12 +226,12 @@ export function AvatarBody() {
     const parts: React.ReactNode[] = [];
     
     // TOP CLOTHING
-    const topColor = new THREE.Color(avatar.topColor || '#3498db');
-    const topMaterial = new THREE.MeshStandardMaterial({ 
+    const topColor = useMemo(() => new THREE.Color(avatar.topColor || '#3498db'), [avatar.topColor]);
+    const topMaterial = useMemo(() => new THREE.MeshStandardMaterial({ 
       color: topColor, 
       roughness: 0.75,
       metalness: 0.05,
-    });
+    }), [topColor]);
 
     switch (avatar.topType) {
       case 'tshirt':
@@ -313,12 +313,12 @@ export function AvatarBody() {
     }
 
     // BOTTOM CLOTHING
-    const bottomColor = new THREE.Color(avatar.bottomColor || '#2c3e50');
-    const bottomMaterial = new THREE.MeshStandardMaterial({ 
+    const bottomColor = useMemo(() => new THREE.Color(avatar.bottomColor || '#2c3e50'), [avatar.bottomColor]);
+    const bottomMaterial = useMemo(() => new THREE.MeshStandardMaterial({ 
       color: bottomColor, 
       roughness: 0.7,
       metalness: 0.05,
-    });
+    }), [bottomColor]);
 
     switch (avatar.bottomType) {
       case 'pants':
@@ -369,13 +369,13 @@ export function AvatarBody() {
     }
 
     // SHOES
-    const shoeColor = new THREE.Color(avatar.shoeColor || '#ecf0f1');
-    const soleMaterial = new THREE.MeshStandardMaterial({ color: '#2c3e50', roughness: 0.9 });
-    const shoeMaterial = new THREE.MeshStandardMaterial({ 
+    const shoeColor = useMemo(() => new THREE.Color(avatar.shoeColor || '#ecf0f1'), [avatar.shoeColor]);
+    const soleMaterial = useMemo(() => new THREE.MeshStandardMaterial({ color: '#2c3e50', roughness: 0.9 }), []);
+    const shoeMaterial = useMemo(() => new THREE.MeshStandardMaterial({ 
       color: shoeColor, 
       roughness: 0.55,
       metalness: 0.1,
-    });
+    }), [shoeColor]);
 
     switch (avatar.shoeType) {
       case 'sneakers':
@@ -438,7 +438,7 @@ export function AvatarBody() {
 
     // ACCESSORIES
     if (avatar.accessory === 'glasses') {
-      const glassMaterial = new THREE.MeshStandardMaterial({ color: '#2c3e50', roughness: 0.25, metalness: 0.85 });
+      const glassMaterial = useMemo(() => new THREE.MeshStandardMaterial({ color: '#2c3e50', roughness: 0.25, metalness: 0.85 }), []);
       parts.push(
         <group key="glasses" position={[0, 0.1, 0.44]}>
           <mesh position={[-0.16, 0, 0]}>
@@ -466,7 +466,7 @@ export function AvatarBody() {
     }
     
     if (avatar.accessory === 'sunglasses') {
-      const lensMaterial = new THREE.MeshStandardMaterial({ color: '#1a1a1a', roughness: 0.05, metalness: 0.95 });
+      const lensMaterial = useMemo(() => new THREE.MeshStandardMaterial({ color: '#1a1a1a', roughness: 0.05, metalness: 0.95 }), []);
       parts.push(
         <group key="sunglasses" position={[0, 0.1, 0.44]}>
           <mesh position={[-0.16, 0, 0]}>
@@ -486,7 +486,7 @@ export function AvatarBody() {
     }
     
     if (avatar.accessory === 'hat') {
-      const hatMaterial = new THREE.MeshStandardMaterial({ color: '#e74c3c', roughness: 0.65 });
+      const hatMaterial = useMemo(() => new THREE.MeshStandardMaterial({ color: '#e74c3c', roughness: 0.65 }), []);
       parts.push(
         <group key="hat" position={[0, 0.38, 0]}>
           <mesh castShadow>
@@ -510,7 +510,7 @@ export function AvatarBody() {
     }
     
     if (avatar.accessory === 'earrings') {
-      const goldMaterial = new THREE.MeshStandardMaterial({ color: '#f1c40f', metalness: 0.95, roughness: 0.08 });
+      const goldMaterial = useMemo(() => new THREE.MeshStandardMaterial({ color: '#f1c40f', metalness: 0.95, roughness: 0.08 }), []);
       parts.push(
         <mesh key="earring-l" position={[-0.49, -0.1, 0]} castShadow>
           <torusGeometry args={[0.028, 0.006, 12, 24]} />
@@ -524,7 +524,7 @@ export function AvatarBody() {
     }
     
     if (avatar.accessory === 'necklace') {
-      const goldMaterial = new THREE.MeshStandardMaterial({ color: '#f1c40f', metalness: 0.95, roughness: 0.08 });
+      const goldMaterial = useMemo(() => new THREE.MeshStandardMaterial({ color: '#f1c40f', metalness: 0.95, roughness: 0.08 }), []);
       parts.push(
         <mesh key="necklace-chain" position={[0, 0.74, 0.18]} rotation={[Math.PI / 2.5, 0, 0]}>
           <torusGeometry args={[0.14, 0.006, 8, 32]} />

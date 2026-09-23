@@ -1,8 +1,8 @@
 'use client';
 
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Environment, ContactShadows, Grid, Stars } from '@react-three/drei';
-import { Suspense, useRef } from 'react';
+import { OrbitControls, Environment, ContactShadows, Grid } from '@react-three/drei';
+import { Suspense, useRef, useMemo } from 'react';
 import Avatar from './Avatar';
 import * as THREE from 'three';
 

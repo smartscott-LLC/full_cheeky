@@ -17,11 +17,8 @@ export function AvatarHead() {
       square: { x: 1.08, y: 0.92, z: 1.08 },
       heart: { x: 0.95, y: 1.08, z: 0.92 },
     };
-    return new THREE.Vector3(
-      scales[avatar.faceType].x,
-      scales[avatar.faceType].y,
-      scales[avatar.faceType].z
-    );
+    const s = scales[avatar.faceType];
+    return new THREE.Vector3(s.x, s.y, s.z);
   }, [avatar.faceType]);
 
   return (
@@ -142,11 +139,11 @@ export function AvatarHead() {
         {/* Nostrils */}
         <mesh position={[-0.04, -0.04, 0.06]}>
           <sphereGeometry args={[0.02, 16, 16]} />
-          <meshStandardMaterial color={new THREE.Color(skinColor).multiplyScalar(0.85)} roughness={0.8} />
+          <meshStandardMaterial color={skinColor.clone().multiplyScalar(0.85)} roughness={0.8} />
         </mesh>
         <mesh position={[0.04, -0.04, 0.06]}>
           <sphereGeometry args={[0.02, 16, 16]} />
-          <meshStandardMaterial color={new THREE.Color(skinColor).multiplyScalar(0.85)} roughness={0.8} />
+          <meshStandardMaterial color={skinColor.clone().multiplyScalar(0.85)} roughness={0.8} />
         </mesh>
       </group>
 
@@ -181,11 +178,11 @@ export function AvatarHead() {
       {/* Inner ear details */}
       <mesh position={[-0.46, 0, 0.04]} rotation={[0, 0, Math.PI / 2]}>
         <circleGeometry args={[0.06, 32]} />
-        <meshStandardMaterial color={new THREE.Color(skinColor).multiplyScalar(0.9)} roughness={0.7} side={THREE.DoubleSide} />
+        <meshStandardMaterial color={skinColor.clone().multiplyScalar(0.9)} roughness={0.7} side={THREE.DoubleSide} />
       </mesh>
       <mesh position={[0.46, 0, 0.04]} rotation={[0, 0, Math.PI / 2]}>
         <circleGeometry args={[0.06, 32]} />
-        <meshStandardMaterial color={new THREE.Color(skinColor).multiplyScalar(0.9)} roughness={0.7} side={THREE.DoubleSide} />
+        <meshStandardMaterial color={skinColor.clone().multiplyScalar(0.9)} roughness={0.7} side={THREE.DoubleSide} />
       </mesh>
 
       {/* Hair */}
@@ -194,13 +191,13 @@ export function AvatarHead() {
   );
 
   function renderHair(style: string, color: THREE.Color, faceScale: THREE.Vector3) {
-    const hairMaterial = new THREE.MeshStandardMaterial({ 
+    const hairMaterial = useMemo(() => new THREE.MeshStandardMaterial({ 
       color, 
       roughness: 0.75, 
       metalness: 0.05,
       clearcoat: 0.2,
       clearcoatRoughness: 0.6
-    });
+    }), [color]);
 
     switch (style) {
       case 'short':
@@ -326,7 +323,7 @@ export function AvatarHead() {
               [-0.42, 0.12, 0], [0.42, 0.12, 0],
               [-0.38, -0.02, 0.15], [0.38, -0.02, 0.15]
             ].map((pos, i) => (
-              <mesh key={i} position={new THREE.Vector3(...pos)} castShadow>
+              <mesh key={i} position={new THREE.Vector3(pos[0], pos[1], pos[2])} castShadow>
                 <sphereGeometry args={[0.11, 24, 24]} />
                 <hairMaterial />
               </mesh>
@@ -348,7 +345,7 @@ export function AvatarHead() {
               [-0.48, 0.08, 0], [0.48, 0.08, 0],
               [-0.35, -0.08, 0.2], [0.35, -0.08, 0.2]
             ].map((pos, i) => (
-              <mesh key={i} position={new THREE.Vector3(...pos)} castShadow>
+              <mesh key={i} position={new THREE.Vector3(pos[0], pos[1], pos[2])} castShadow>
                 <sphereGeometry args={[0.13, 20, 20]} />
                 <hairMaterial />
               </mesh>
