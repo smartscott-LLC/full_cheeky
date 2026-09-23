@@ -1,0 +1,3 @@
+cd cheeky_asset_creator
+pnpm install
+pnpm dev
