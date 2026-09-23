@@ -1,12 +1,9 @@
 'use client';
 
-import { useRef } from 'react';
 import { useAvatar } from '@/contexts/AvatarContext';
-import * as THREE from 'three';
 
 export function AvatarHead() {
   const { avatar, getSkinColor } = useAvatar();
-  const headRef = useRef<THREE.Group>(null);
 
   const skinColor = getSkinColor();
   const hairColor = avatar.hairStyle !== 'none' ? 
@@ -23,7 +20,7 @@ export function AvatarHead() {
   }[avatar.faceType];
 
   return (
-    <group ref={headRef} position={[0, 1.65, 0]}>
+    <group position={[0, 1.65, 0]}>
       {/* Head */}
       <mesh castShadow receiveShadow>
         <sphereGeometry args={[0.45, 32, 32]} />
@@ -123,15 +120,11 @@ export function AvatarHead() {
       </mesh>
 
       {/* Hair */}
-      {renderHair(avatar.hairStyle, hairColor, avatar.faceType)}
+      {renderHair(avatar.hairStyle, hairColor)}
     </group>
   );
 
-  function renderHair(style: string, color: string, faceType: string) {
-    const baseHairProps = {
-      material: new THREE.MeshStandardMaterial({ color, roughness: 0.8, metalness: 0.1 }),
-    };
-
+  function renderHair(style: string, color: string) {
     switch (style) {
       case 'short':
         return (

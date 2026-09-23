@@ -1,6 +1,5 @@
 'use client';
 
-import { useRef } from 'react';
 import { useAvatar } from '@/contexts/AvatarContext';
 import * as THREE from 'three';
 

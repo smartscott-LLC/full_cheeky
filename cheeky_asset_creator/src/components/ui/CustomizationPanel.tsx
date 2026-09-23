@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useAvatar } from '@/contexts/AvatarContext';
 import type { 
   BodyType, FaceType, SkinTone, HairStyle, HairColor,
