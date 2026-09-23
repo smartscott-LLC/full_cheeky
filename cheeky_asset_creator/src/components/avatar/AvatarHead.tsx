@@ -1,23 +1,21 @@
 'use client';
 
 import { useAvatar } from '@/contexts/AvatarContext';
+import * as THREE from 'three';
 
 export function AvatarHead() {
   const { avatar, getSkinColor } = useAvatar();
 
   const skinColor = getSkinColor();
-  const hairColor = avatar.hairStyle !== 'none' ? 
-    ['black', 'brown', 'blonde', 'red', 'auburn', 'white', 'gray'].includes(avatar.hairColor) 
-      ? avatar.hairColor 
-      : '#1a1a1a' 
+  const hairColor = ['black', 'brown', 'blonde', 'red', 'auburn', 'white', 'gray'].includes(avatar.hairColor) 
+    ? avatar.hairColor 
     : '#1a1a1a';
 
-  const faceScale = {
-    round: { x: 1.1, y: 1.0, z: 1.0 },
-    oval: { x: 0.9, y: 1.15, z: 1.0 },
-    square: { x: 1.05, y: 0.95, z: 1.05 },
-    heart: { x: 1.0, y: 1.05, z: 0.95 },
-  }[avatar.faceType];
+  const faceScale = new THREE.Vector3(
+    avatar.faceType === 'round' ? 1.1 : avatar.faceType === 'oval' ? 0.9 : avatar.faceType === 'square' ? 1.05 : 1.0,
+    avatar.faceType === 'round' ? 1.0 : avatar.faceType === 'oval' ? 1.15 : avatar.faceType === 'square' ? 0.95 : 1.05,
+    avatar.faceType === 'round' ? 1.0 : avatar.faceType === 'oval' ? 1.0 : avatar.faceType === 'square' ? 1.05 : 0.95
+  );
 
   return (
     <group position={[0, 1.65, 0]}>
@@ -46,12 +44,12 @@ export function AvatarHead() {
       {/* Eyes */}
       <group position={[0, 0.08, 0.38]}>
         {/* Left eye white */}
-        <mesh position={[-0.14, 0, 0]}>
+        <mesh position={new THREE.Vector3(-0.14, 0, 0)}>
           <sphereGeometry args={[0.08, 16, 16]} />
           <meshStandardMaterial color="white" roughness={0.1} />
         </mesh>
         {/* Left iris */}
-        <mesh position={[-0.14, 0, 0.05]}>
+        <mesh position={new THREE.Vector3(-0.14, 0, 0.05)}>
           <sphereGeometry args={[0.045, 16, 16]} />
           <meshStandardMaterial 
             color="#4a3728" 
@@ -59,18 +57,18 @@ export function AvatarHead() {
           />
         </mesh>
         {/* Left pupil */}
-        <mesh position={[-0.14, 0, 0.08]}>
+        <mesh position={new THREE.Vector3(-0.14, 0, 0.08)}>
           <sphereGeometry args={[0.02, 16, 16]} />
           <meshStandardMaterial color="black" />
         </mesh>
 
         {/* Right eye white */}
-        <mesh position={[0.14, 0, 0]}>
+        <mesh position={new THREE.Vector3(0.14, 0, 0)}>
           <sphereGeometry args={[0.08, 16, 16]} />
           <meshStandardMaterial color="white" roughness={0.1} />
         </mesh>
         {/* Right iris */}
-        <mesh position={[0.14, 0, 0.05]}>
+        <mesh position={new THREE.Vector3(0.14, 0, 0.05)}>
           <sphereGeometry args={[0.045, 16, 16]} />
           <meshStandardMaterial 
             color="#4a3728" 
@@ -78,30 +76,30 @@ export function AvatarHead() {
           />
         </mesh>
         {/* Right pupil */}
-        <mesh position={[0.14, 0, 0.08]}>
+        <mesh position={new THREE.Vector3(0.14, 0, 0.08)}>
           <sphereGeometry args={[0.02, 16, 16]} />
           <meshStandardMaterial color="black" />
         </mesh>
 
         {/* Eyebrows */}
-        <mesh position={[-0.14, 0.12, 0.36]} rotation={[0, 0, -0.1]}>
+        <mesh position={new THREE.Vector3(-0.14, 0.12, 0.36)} rotation={[0, 0, -0.1]}>
           <boxGeometry args={[0.12, 0.025, 0.02]} />
           <meshStandardMaterial color={hairColor} roughness={0.8} />
         </mesh>
-        <mesh position={[0.14, 0.12, 0.36]} rotation={[0, 0, 0.1]}>
+        <mesh position={new THREE.Vector3(0.14, 0.12, 0.36)} rotation={[0, 0, 0.1]}>
           <boxGeometry args={[0.12, 0.025, 0.02]} />
           <meshStandardMaterial color={hairColor} roughness={0.8} />
         </mesh>
       </group>
 
       {/* Nose */}
-      <mesh position={[0, -0.02, 0.42]}>
+      <mesh position={new THREE.Vector3(0, -0.02, 0.42)}>
         <sphereGeometry args={[0.04, 16, 16]} />
         <meshStandardMaterial color={skinColor} roughness={0.7} />
       </mesh>
 
       {/* Mouth */}
-      <mesh position={[0, -0.12, 0.4]} rotation={[Math.PI / 2, 0, 0]}>
+      <mesh position={new THREE.Vector3(0, -0.12, 0.4)} rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[0.06, 0.015, 8, 16, Math.PI]} />
         <meshStandardMaterial 
           color="#c0392b" 
@@ -110,11 +108,11 @@ export function AvatarHead() {
       </mesh>
 
       {/* Ears */}
-      <mesh position={[-0.44, 0, 0]} castShadow>
+      <mesh position={new THREE.Vector3(-0.44, 0, 0)} castShadow>
         <sphereGeometry args={[0.08, 16, 16]} />
         <meshStandardMaterial color={skinColor} roughness={0.7} />
       </mesh>
-      <mesh position={[0.44, 0, 0]} castShadow>
+      <mesh position={new THREE.Vector3(0.44, 0, 0)} castShadow>
         <sphereGeometry args={[0.08, 16, 16]} />
         <meshStandardMaterial color={skinColor} roughness={0.7} />
       </mesh>
@@ -129,11 +127,11 @@ export function AvatarHead() {
       case 'short':
         return (
           <group>
-            <mesh position={[0, 0.15, 0]} castShadow>
+            <mesh position={new THREE.Vector3(0, 0.15, 0)} castShadow>
               <sphereGeometry args={[0.47, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2]} />
               <meshStandardMaterial color={color} roughness={0.8} />
             </mesh>
-            <mesh position={[0, 0.08, 0.15]} castShadow>
+            <mesh position={new THREE.Vector3(0, 0.08, 0.15)} castShadow>
               <boxGeometry args={[0.7, 0.15, 0.5]} />
               <meshStandardMaterial color={color} roughness={0.8} />
             </mesh>
@@ -142,15 +140,15 @@ export function AvatarHead() {
       case 'medium':
         return (
           <group>
-            <mesh position={[0, 0.12, 0]} castShadow>
+            <mesh position={new THREE.Vector3(0, 0.12, 0)} castShadow>
               <sphereGeometry args={[0.48, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2 + 0.3]} />
               <meshStandardMaterial color={color} roughness={0.8} />
             </mesh>
-            <mesh position={[-0.48, -0.05, 0]} castShadow>
+            <mesh position={new THREE.Vector3(-0.48, -0.05, 0)} castShadow>
               <cylinderGeometry args={[0.08, 0.06, 0.25, 8]} />
               <meshStandardMaterial color={color} roughness={0.8} />
             </mesh>
-            <mesh position={[0.48, -0.05, 0]} castShadow>
+            <mesh position={new THREE.Vector3(0.48, -0.05, 0)} castShadow>
               <cylinderGeometry args={[0.08, 0.06, 0.25, 8]} />
               <meshStandardMaterial color={color} roughness={0.8} />
             </mesh>
@@ -159,19 +157,19 @@ export function AvatarHead() {
       case 'long':
         return (
           <group>
-            <mesh position={[0, 0.12, 0]} castShadow>
+            <mesh position={new THREE.Vector3(0, 0.12, 0)} castShadow>
               <sphereGeometry args={[0.48, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2 + 0.3]} />
               <meshStandardMaterial color={color} roughness={0.8} />
             </mesh>
-            <mesh position={[-0.5, -0.2, -0.1]} castShadow>
+            <mesh position={new THREE.Vector3(-0.5, -0.2, -0.1)} castShadow>
               <cylinderGeometry args={[0.1, 0.05, 0.5, 8]} />
               <meshStandardMaterial color={color} roughness={0.8} />
             </mesh>
-            <mesh position={[0.5, -0.2, -0.1]} castShadow>
+            <mesh position={new THREE.Vector3(0.5, -0.2, -0.1)} castShadow>
               <cylinderGeometry args={[0.1, 0.05, 0.5, 8]} />
               <meshStandardMaterial color={color} roughness={0.8} />
             </mesh>
-            <mesh position={[0, -0.3, -0.15]} castShadow>
+            <mesh position={new THREE.Vector3(0, -0.3, -0.15)} castShadow>
               <boxGeometry args={[0.8, 0.4, 0.15]} />
               <meshStandardMaterial color={color} roughness={0.8} />
             </mesh>
@@ -180,11 +178,11 @@ export function AvatarHead() {
       case 'mohawk':
         return (
           <group>
-            <mesh position={[0, 0.25, 0]} castShadow>
+            <mesh position={new THREE.Vector3(0, 0.25, 0)} castShadow>
               <boxGeometry args={[0.15, 0.25, 0.6]} />
               <meshStandardMaterial color={color} roughness={0.7} />
             </mesh>
-            <mesh position={[0, 0.12, 0]} castShadow>
+            <mesh position={new THREE.Vector3(0, 0.12, 0)} castShadow>
               <sphereGeometry args={[0.46, 32, 32, 0, Math.PI * 2, 0, Math.PI / 3]} />
               <meshStandardMaterial color={color} roughness={0.8} />
             </mesh>
@@ -193,7 +191,7 @@ export function AvatarHead() {
       case 'buzz':
         return (
           <group>
-            <mesh position={[0, 0.1, 0]} castShadow>
+            <mesh position={new THREE.Vector3(0, 0.1, 0)} castShadow>
               <sphereGeometry args={[0.46, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2 + 0.15]} />
               <meshStandardMaterial color={color} roughness={0.85} />
             </mesh>
@@ -202,11 +200,17 @@ export function AvatarHead() {
       case 'curly':
         return (
           <group>
-            <mesh position={[0, 0.15, 0]} castShadow>
+            <mesh position={new THREE.Vector3(0, 0.15, 0)} castShadow>
               <sphereGeometry args={[0.52, 32, 32]} />
               <meshStandardMaterial color={color} roughness={0.8} />
             </mesh>
-            {[[-0.3, 0.2, 0], [0.3, 0.2, 0], [-0.2, 0.35, 0], [0.2, 0.35, 0], [0, 0.4, 0]].map((pos, i) => (
+            {[
+              new THREE.Vector3(-0.3, 0.2, 0),
+              new THREE.Vector3(0.3, 0.2, 0),
+              new THREE.Vector3(-0.2, 0.35, 0),
+              new THREE.Vector3(0.2, 0.35, 0),
+              new THREE.Vector3(0, 0.4, 0)
+            ].map((pos, i) => (
               <mesh key={i} position={pos} castShadow>
                 <sphereGeometry args={[0.1, 16, 16]} />
                 <meshStandardMaterial color={color} roughness={0.8} />
@@ -217,7 +221,7 @@ export function AvatarHead() {
       case 'afro':
         return (
           <group>
-            <mesh position={[0, 0.18, 0]} castShadow>
+            <mesh position={new THREE.Vector3(0, 0.18, 0)} castShadow>
               <sphereGeometry args={[0.58, 32, 32]} />
               <meshStandardMaterial color={color} roughness={0.85} />
             </mesh>
@@ -226,15 +230,15 @@ export function AvatarHead() {
       case 'ponytail':
         return (
           <group>
-            <mesh position={[0, 0.15, 0]} castShadow>
+            <mesh position={new THREE.Vector3(0, 0.15, 0)} castShadow>
               <sphereGeometry args={[0.48, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2 + 0.2]} />
               <meshStandardMaterial color={color} roughness={0.8} />
             </mesh>
-            <mesh position={[0, 0.1, -0.45]} castShadow>
+            <mesh position={new THREE.Vector3(0, 0.1, -0.45)} castShadow>
               <cylinderGeometry args={[0.08, 0.04, 0.35, 8]} />
               <meshStandardMaterial color={color} roughness={0.8} />
             </mesh>
-            <mesh position={[0, 0.25, -0.5]} castShadow>
+            <mesh position={new THREE.Vector3(0, 0.25, -0.5)} castShadow>
               <sphereGeometry args={[0.06, 16, 16]} />
               <meshStandardMaterial color={color} roughness={0.8} />
             </mesh>
