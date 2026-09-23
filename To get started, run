@@ -1,0 +1,3 @@
+cd cheeky_asset_creator
+npm install
+npm run dev

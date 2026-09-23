@@ -1,0 +1,9 @@
+{
+  "name": "Cheeky Asset Creator",
+  "short_name": "AssetCreator",
+  "description": "Create and manage 3D assets",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6366f1"
+}
