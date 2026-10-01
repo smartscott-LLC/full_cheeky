@@ -1,11 +1,23 @@
-# Supabase Storage Architecture - Implementation Complete
+# Supabase Storage Architecture — SUPERSEDED (2026-10-01)
+
+> **⚠️ Historical record.** This document describes the 2026-09-22 quest-engine
+> storage build. On 2026-10-01 the quest/avatar debris it manages was purged:
+> `quest-assets` (845 GLBs), `quest-avatars`, and `ui-assets` buckets are
+> **deleted**; `asset_catalog`, `quest_catalog`, `ui_catalog`, and `avatars`
+> tables are **dropped** (migration `20261001000001` in cheeky-app). The
+> keeper from this design is **`user-manifests`** (manifest-per-user, the
+> future vector-DB substrate) — the model-maker integration will define the
+> new asset contract. `cleanup_database.sql` and `populate_catalogs.py`
+> referenced here were removed from this repo — cleanup_database.sql had
+> already dropped live tables (`club_announcements`, `rate_limits`) before
+> anyone noticed; that damage was restored by migration `20261001000002`.
 
 ## Summary
 
 ### Database Cleanup
 - ✅ Dropped `test_foo` (test junk)
-- ✅ Dropped `club_announcements` (0 rows)
-- ✅ Dropped `rate_limits` (0 rows)
+- ✅ Dropped `club_announcements` (0 rows) — **MISTAKE, later restored**
+- ✅ Dropped `rate_limits` (0 rows) — **MISTAKE, later restored**
 - ✅ Ran VACUUM ANALYZE on all tables
 - ✅ 86 tables remaining (cleaned from 84 → 86 with new catalog tables)
 
@@ -64,7 +76,10 @@ TOTAL     |  554 |   1176 | 1,730
 3. Connect CharacterStudio to fetch from manifest instead of local files
 4. Implement vector search when ready
 
-## Connection String (for reference):
-```
-postgres://postgres.ioqeddpgdilyyajsygmz:!Carryacross1128@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require
-```
+## Connection credentials
+
+**Removed 2026-10-01** — this section previously contained the live
+`postgres://` connection string with the DB password in plaintext.
+Credentials live only in `cheeky-app/.env.new` (gitignored, mode 600) and the
+Vercel/Supabase dashboards. The password exposed by the old text is being
+rotated as part of this cleanup.
